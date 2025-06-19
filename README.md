@@ -1,7 +1,8 @@
 # AI Piloted Lunar Lander
 
 # check ins
-Wed, un 18th
+**Wed, un 18th**
+
 The scoring, telemetry, and basic agent classes are done! The Agent class uses the following basic heuristic rules to decide when to thrust and steer:
 
 ```
@@ -21,7 +22,8 @@ Finally time for a screenshot. There are 10 ships at a time, each with it's tele
 
 ![First Screenshot!](/public/images/first_screenshot.png)
 
-Mon, Jun 16th
+**Mon, Jun 16th**
+
 I finished the basic game, it's an endless loop of 10 spaceships at a time falling towards a level surface. I also started with randomly generated terrain, but it doesn't work so good for collision detection, *but* it looks nice so I left it in.
 
 I also abandoned rotating the craft. It's complicated both to code, and I assume to train the network, so we're pressing forward with just left to right motion. Next up are the landing zones, AI agents, and telemetry data collection.
