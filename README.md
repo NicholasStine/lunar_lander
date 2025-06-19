@@ -26,7 +26,28 @@ Finally time for a screenshot. There are 10 ships at a time, each with it's tele
 
 The Cache class also has a load() method to load and flatten all flight-data files in the /data file as a list of shape (n, 2, 3) which can easily be split using numpy into x and y arrays for feeding into a keras.Sequential dense feed forward network.
 
-As I write this entry, I'm running 100 games to collect a bunch of flight data, because my original dozen or so gameplay files didn't learn at all! In fact, the categorical crossentropy loss ballooned to over 150 in just 3 epochs! Oooooorrr maybe I'm just using the wrong loss function! We'll see, because it's gonna be a while before all 100 simulations finish. Nick out!
+As I write this entry, I'm running 100 games to collect a bunch of flight data, because my original dozen or so gameplay files didn't learn at all! In fact, the categorical crossentropy loss ballooned to over 150 in just 3 epochs! Oooooorrr maybe I'm just using the wrong loss function! We'll see, because it's gonna be a while before all 100 simulations finish. 
+
+The current network is intentionally simple. I don't aim to immediately train a useful network, but instead to validate my training pipeline: fly, collect, train, repeat. At this point, all I need is a keras model that I can load and sample for real time flight decisions. To that end, the dense_model.py class below lacks a sample() method:
+
+```
+class DenseModel():
+    def __init__(self):
+        self.model = keras.Sequential([
+            keras.layers.Input((3,)),
+            keras.layers.Dense(64, activation='relu'),
+            keras.layers.Dense(32, activation='relu'),
+            keras.layers.Dense(3, activation='softmax')
+        ])
+        self.model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=['accuracy'])
+    
+    def fit(self, flight_data):
+        data = np.array(flight_data, dtype="float64")
+        print(data.shape)
+        x = data[:,0]
+        y = data[:,1]
+        self.model.fit(x, y, epochs=3, batch_size=32)
+```
 
 **Mon, Jun 16th**
 
@@ -43,10 +64,12 @@ I'm also starting to think that I want to turn this into a swarm controller, whe
 - (done) Spaceship
 - (done) World
 - (done) Game Loop
-- (started) landing zone
-- (started) agents
-- (started) telemetry
-- cache
-- model
-- training
+- (done) landing zone
+- (done) heuristic agents
+- AI agents
+- (done) telemetry
+- (done) cache
+- (done) model
+- (done) reward function
+- (started) training
 - let the model drive
