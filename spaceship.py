@@ -1,8 +1,11 @@
 import random
 import pygame
 
+from agent import Agent
+from telemetry import Telemetry
+
 class Spaceship():
-    def __init__(self, screen):
+    def __init__(self, screen, world):
         self.screen = screen
         self.dead = False
         self.velocity = (random.uniform(-0.01, 0.01), random.uniform(-0.01, 0.01))
@@ -14,6 +17,8 @@ class Spaceship():
         self.surface = pygame.Surface((self.width, self.height))
         self.shape = pygame.Rect(*self.pos, self.width, self.height)
         self.surface.blit(self.sprite, (0,0))
+        self.telemetry = Telemetry(self, world)
+        self.agent = Agent(self)
     
     def die(self):
         self.dead = True
@@ -23,6 +28,7 @@ class Spaceship():
         self.pos = (self.pos[0] + self.velocity[0], self.pos[1] + self.velocity[1])
         self.moveRect()
         self.draw()
+        self.telemetry.draw()
 
     def moveRect(self):
         updated_rect = pygame.Rect(*self.pos, self.width, self.height)

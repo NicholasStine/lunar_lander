@@ -12,7 +12,7 @@ thrust = False
 left = False
 right = False
 while True:
-    spaceships = [Spaceship(screen) for _ in range(10)]
+    spaceships = [Spaceship(screen, world) for _ in range(10)]
     world.generateTerrain()
     world.generateLandingZones()
     while True:
@@ -37,6 +37,7 @@ while True:
         screen.fill((0, 0, 0))
         world.update()
         for spaceship in spaceships:
+            spaceship.agent.fly()
             if thrust: spaceship.thrust()
             if left: spaceship.left()
             if right: spaceship.right()
