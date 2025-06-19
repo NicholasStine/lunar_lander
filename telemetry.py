@@ -10,6 +10,7 @@ class Telemetry():
         self.score = 0
         self.altitude = 0
         self.distance = 0
+        self.velocity = 0
         
     def draw(self):
         altitude = self.world.floor_rect.top - (self.ship.pos[1] + self.ship.sprite.get_height())
@@ -21,6 +22,7 @@ class Telemetry():
 
         self.score = score
         self.altitude = altitude
+        self.velocity = velocity
         self.distance = distance
 
         color = (255 - (255 * score), 255 * score, 0)

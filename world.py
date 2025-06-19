@@ -34,17 +34,6 @@ class World():
         width = 3
         for i in range(4,1,-1):
             self.landing_zones.append(LandingZone(self.screen, width * 2 * math.exp(i) * 0.8, ((self.screen_w / 2) - (width * math.exp(i) * 0.8), self.floor_rect.top - 10)))
-        # x_step = self.screen_w / 3
-        # x_pos = x_step / 2
-        # for _ in range(3):
-        #     offset = 0
-        #     position = (x_pos + offset, self.floor_rect.top - 10)
-        #     zones.append([width, position])
-        #     width += width
-        #     x_pos += x_step
-        # self.landing_zones = [LandingZone(self.screen, width, position) for [width, position] in zones]
-        # random.shuffle(self.landing_zones)
-        # self.landing_zones = sorted(self.landing_zones, key=lambda _: random.random())
 
     def generateTerrain(self):
         other = []

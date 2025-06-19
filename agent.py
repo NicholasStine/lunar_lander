@@ -1,11 +1,12 @@
 
 
 import random
-
+from cache import Cache
 
 class Agent():
     def __init__(self, ship):
         self.ship = ship
+        self.cache = Cache(ship)
     
     def fly(self):
         thrust = random.random() * 0.65 > self.ship.telemetry.altitude
@@ -16,3 +17,4 @@ class Agent():
         if (right): self.ship.right()
         if (left): self.ship.left()
         
+        self.cache.save([thrust, left, right])

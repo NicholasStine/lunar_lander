@@ -1,7 +1,7 @@
 # AI Piloted Lunar Lander
 
 # check ins
-**Wed, un 18th**
+**Wed, Jun 18th** 
 
 The scoring, telemetry, and basic agent classes are done! The Agent class uses the following basic heuristic rules to decide when to thrust and steer:
 
@@ -22,6 +22,12 @@ Finally time for a screenshot. There are 10 ships at a time, each with it's tele
 
 ![First Screenshot!](/public/images/first_screenshot.png)
 
+*later that evening* I've got the DenseNetwork and Cache classes done! The cache class saves the telemetry data (altitude, velocity, and distance) and one hot encoded thrust, left, right actions, as a [state, action] pair for each timestep, and when each ship dies, it pickles it's flight data (just like a blackbox on a real aircraft!). 
+
+The Cache class also has a load() method to load and flatten all flight-data files in the /data file as a list of shape (n, 2, 3) which can easily be split using numpy into x and y arrays for feeding into a keras.Sequential dense feed forward network.
+
+As I write this entry, I'm running 100 games to collect a bunch of flight data, because my original dozen or so gameplay files didn't learn at all! In fact, the categorical crossentropy loss ballooned to over 150 in just 3 epochs! Oooooorrr maybe I'm just using the wrong loss function! We'll see, because it's gonna be a while before all 100 simulations finish. Nick out!
+
 **Mon, Jun 16th**
 
 I finished the basic game, it's an endless loop of 10 spaceships at a time falling towards a level surface. I also started with randomly generated terrain, but it doesn't work so good for collision detection, *but* it looks nice so I left it in.
@@ -38,8 +44,9 @@ I'm also starting to think that I want to turn this into a swarm controller, whe
 - (done) World
 - (done) Game Loop
 - (started) landing zone
-- agents (autonymous pilots)
+- (started) agents
 - (started) telemetry
-
-- today I want to get a basic game loop, with a rectangle that falls to the ground.
-  *note to self mon jun 16, I finished this the day after I started the project.
+- cache
+- model
+- training
+- let the model drive

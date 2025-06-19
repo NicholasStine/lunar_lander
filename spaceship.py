@@ -22,6 +22,7 @@ class Spaceship():
     
     def die(self):
         self.dead = True
+        self.agent.cache.pickle()
 
     def update(self):
         self.fall()

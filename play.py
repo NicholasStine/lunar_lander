@@ -1,5 +1,6 @@
 import pygame
 from collisions import checkRectCollision
+from dense_model import DenseModel
 from joystick import Joystick
 from spaceship import Spaceship
 from world import World
@@ -14,12 +15,14 @@ joystick = Joystick()
 thrust = False
 left = False
 right = False
+spaceships = [Spaceship(screen, world) for _ in range(10)]
 
-while True:
-    spaceships = [Spaceship(screen, world) for _ in range(10)]
+for game_i in range(100):
     world.generateTerrain()
     world.generateLandingZones()
+    step_i = 0
     while True:
+        # if step_i > 500: break
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -39,3 +42,9 @@ while True:
         spaceships = list(filter(lambda ship: ship.dead == False, spaceships))
         if not len(spaceships): break
         pygame.display.flip()
+        step_i += 1
+    spaceships = [Spaceship(screen, world) for _ in range(10)]
+    
+flight_data = spaceships[0].agent.cache.load()
+model = DenseModel()
+model.fit(flight_data)
