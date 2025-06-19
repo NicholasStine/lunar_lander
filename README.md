@@ -19,7 +19,7 @@ Next up is to collect the gameplay data, architect a basic dense neural network,
 
 Finally time for a screenshot. There are 10 ships at a time, each with it's telemetry data displayed overhead, with a text color corresponding to the score. Each value is ranged from either 0 to 1, or -1 to 1 to reduce the need for pre-processing in other classes.
 
-~[First Screenshot!](/public/images/first_screenshot.png)
+![First Screenshot!](/public/images/first_screenshot.png)
 
 Mon, Jun 16th
 I finished the basic game, it's an endless loop of 10 spaceships at a time falling towards a level surface. I also started with randomly generated terrain, but it doesn't work so good for collision detection, *but* it looks nice so I left it in.
