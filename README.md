@@ -3,8 +3,10 @@
 # check ins
 
 **Wed, Jun 20th** 
-Currently watching Tropic Thunder and absolutely crying laughing. Oh yeah, and I got the model trained and a working prediction loop up and running. Every 20 gameplay steps, each spaceship's agent calls model.predict() on the current telemetry data. The model is a dense feed forward network with 3 hidden layers with sizes from 256 to 64 to 32. During training, the model was stuck at around 65% accuracy, and an MSE loss of 0.1098 and it REFUSED to learn. After a few attempts, I was convinced that since the flight data it was trying to fit to was inherently random, I was probably never going to get a great fit, so I settled for just overfitting to around 200k timesteps of flight data. This assumption paid off, as moving onto the prediction loop, I found that the network actually flew quite well!
 
+Currently watching Tropic Thunder and absolutely crying laughing. Oh yeah, and I got the model trained and a working prediction loop up and running. Every 20 gameplay steps, each spaceship's agent calls model.predict() on the current telemetry data. The model is a dense feed forward network with 3 hidden layers with sizes from 256 to 64 to 32. During training, the model was stuck at around 65% accuracy, and an MSE loss of 0.1098 and it REFUSED to learn. 
+
+After a few attempts, I was convinced that since the flight data it was trying to fit to was inherently random, I was probably never going to get a great fit, so I settled for just overfitting to around 200k timesteps of flight data. This assumption paid off, as moving onto the prediction loop, I found that the network actually flew quite well!
 
 
 **Wed, Jun 18th** 
@@ -55,6 +57,7 @@ class DenseModel():
         self.model.fit(x, y, epochs=3, batch_size=32)
 ```
 
+
 **Mon, Jun 16th**
 
 I finished the basic game, it's an endless loop of 10 spaceships at a time falling towards a level surface. I also started with randomly generated terrain, but it doesn't work so good for collision detection, *but* it looks nice so I left it in.
@@ -70,12 +73,12 @@ I'm also starting to think that I want to turn this into a swarm controller, whe
 - (done) Spaceship
 - (done) World
 - (done) Game Loop
-- (done) landing zone
+- (started) landing zones
 - (done) heuristic agents
-- AI agents
+- (started) AI agents
 - (done) telemetry
 - (done) cache
 - (done) model
 - (done) reward function
-- (started) training
-- let the model drive
+- (done) fit to flight data
+- (done) let the model drive
