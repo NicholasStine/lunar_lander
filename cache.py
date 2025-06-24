@@ -13,7 +13,7 @@ import time
 class Cache():
     
     def __init__(self, ship):
-        self.telemetry = ship.telemetry
+        self.telemetry = ship.telemetry if ship else None
         self.cache = []
     
     def pickle(self):
@@ -28,10 +28,11 @@ class Cache():
         ]
         self.cache.append(step)
     
-    def load(self):
+    def load(self, stop_at=-1):
         games = []
         files = list(glob.glob('data/*.pkl'))
-        for file in files:
+        for [i, file] in enumerate(files):
+            if (i == stop_at): break
             with open(file, 'rb') as flight_file:
                 games += pickle.load(flight_file)
         return games

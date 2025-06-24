@@ -1,6 +1,12 @@
 # AI Piloted Lunar Lander
 
 # check ins
+
+**Wed, Jun 20th** 
+Currently watching Tropic Thunder and absolutely crying laughing. Oh yeah, and I got the model trained and a working prediction loop up and running. Every 20 gameplay steps, each spaceship's agent calls model.predict() on the current telemetry data. The model is a dense feed forward network with 3 hidden layers with sizes from 256 to 64 to 32. During training, the model was stuck at around 65% accuracy, and an MSE loss of 0.1098 and it REFUSED to learn. After a few attempts, I was convinced that since the flight data it was trying to fit to was inherently random, I was probably never going to get a great fit, so I settled for just overfitting to around 200k timesteps of flight data. This assumption paid off, as moving onto the prediction loop, I found that the network actually flew quite well!
+
+
+
 **Wed, Jun 18th** 
 
 The scoring, telemetry, and basic agent classes are done! The Agent class uses the following basic heuristic rules to decide when to thrust and steer:

@@ -2,20 +2,37 @@ import numpy as np
 from tensorflow import keras
 
 class DenseModel():
-    def __init__(self):
+    def __init__(self, load_model=None):
+        if load_model:
+            self.model = keras.models.load_model(f"brains/{load_model}.keras")
+            return
         self.model = keras.Sequential([
             keras.layers.Input((3,)),
+            keras.layers.Dense(256, activation='relu'),
             keras.layers.Dense(64, activation='relu'),
             keras.layers.Dense(32, activation='relu'),
             keras.layers.Dense(3, activation='softmax')
         ])
-        self.model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=['accuracy'])
+        optimizer = keras.optimizers.Adam(learning_rate=1e-3)
+        self.model.compile(optimizer=optimizer, loss="mean_squared_error", metrics=['accuracy'])
+        
     
-    def fit(self, flight_data):
+    def fit(self, flight_data, epochs=3, model_name='default_model'):
         data = np.array(flight_data, dtype="float64")
         print(data.shape)
         x = data[:,0]
         y = data[:,1]
-        print(x)
-        print(y)
-        self.model.fit(x, y, epochs=3, batch_size=32)
+        self.model.fit(x, y, epochs=epochs, batch_size=32)
+        self.save(model_name)
+        
+    def fly(self, flight_data):
+        x = np.array(flight_data, dtype="float64").reshape((-1,3))
+        prediction = list(self.model.predict(x, verbose=0))[0]
+        # print("prediction: ", prediction)
+        thrust = prediction[0] > 0.6
+        right = prediction[2] > 0.4
+        left = prediction[1] > 0.4
+        return thrust, right, left
+        
+    def save(self, model_name):
+        self.model.save(f'brains/{model_name}.keras')
