@@ -4,6 +4,7 @@ import random
 from cache import Cache
 from dense_model import DenseModel
 
+MAX_AGE = 10000
 class Agent():
     def __init__(self, ship):
         self.ship = ship
@@ -37,4 +38,4 @@ class Agent():
         
         if cache: self.cache.save([thrust, left, right])
         self.steps_since_born += 1
-        return self.steps_since_born > 10000
+        return self.steps_since_born > MAX_AGE

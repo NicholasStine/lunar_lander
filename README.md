@@ -2,7 +2,18 @@
 
 # check ins
 
-**Wed, Jun 20th** 
+**Wed, Jun 25th**
+
+The basic genetic training algorithm is finally in place! I have 8 spaceships for each generation, and each fly, store their final score upon death, and after all ships have landed / crashed, I sort by score, remove the lower performing half, and generate 4 kids for every 2 parents to get back to the original 8 spaceships.
+
+This algorithm... learns..? Not very well though, there are some obvious deviations in my GA implementation. When mutating, I mutate 100% of the weights, not just 20% of them. Also, given the number of offspring per parent, the lack of shuffling parents, and the low population size effectively means that I'm inbreeding the population.... 
+
+Flaws aside, this iteration of the algorithm was meant to verify that my mutate and crossover functions are working, which it appears they are! With each generation I can clearly observe that different groups of behavior become more relevant over time, so the ga.crossover(parent_a, parent_b) method seems to be working, and there's variation in the each generations of agents behaves that makes me more than confident in the model.mutate(self) method is also working.
+
+Moving on now, I have a few things to do. First priority is to fully implementing the genetic algorithm. I can also improve the fitness function by updating the LandingZone and Telemetry classes to add to the ships final score according to which zone it lands inside of, minus the speed at which it lands. The population size also needs to be increased. This may take some optimization, as with just 10 agents, the training becomes very, VERY slow. I'm not freaking out about this last bit. Training doesn't need to be fast, and the final model only needs to be fast enough to run 1 ship at a time, which it already is. I'd prefer to keep complexity down until absolutely necessary.
+
+
+**Fri, Jun 20th** 
 
 Currently watching Tropic Thunder and absolutely crying laughing. Oh yeah, and I got the model trained and a working prediction loop up and running. Every 20 gameplay steps, each spaceship's agent calls model.predict() on the current telemetry data. The model is a dense feed forward network with 3 hidden layers with sizes from 256 to 64 to 32. During training, the model was stuck at around 65% accuracy, and an MSE loss of 0.1098 and it REFUSED to learn. 
 

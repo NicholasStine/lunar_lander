@@ -16,6 +16,14 @@ class DenseModel():
         optimizer = keras.optimizers.Adam(learning_rate=1e-3)
         self.model.compile(optimizer=optimizer, loss="mean_squared_error", metrics=['accuracy'])
         
+    def mutate(self):
+        mutated = []
+        weights = self.model.get_weights()
+        # print(mutated)
+        for weight in weights:
+            mutation = np.random.normal(0, 0.05, weight.shape)
+            mutated.append(weight + mutation)
+        self.model.set_weights(mutated)
     
     def fit(self, flight_data, epochs=3, model_name='default_model'):
         data = np.array(flight_data, dtype="float64")
